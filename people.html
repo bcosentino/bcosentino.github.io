@@ -13,6 +13,7 @@
 
 <title>Bradley J. Cosentino</title>
 
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -29,9 +30,8 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -231,6 +231,7 @@
 
 
 
+
 <link rel="stylesheet" href="../styles.css" type="text/css" />
 
 
@@ -255,6 +256,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -312,11 +316,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -345,8 +353,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -354,16 +362,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -407,7 +408,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -424,9 +425,6 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="publications.html">Publications</a>
-</li>
-<li>
-  <a href="citizensci.html">Citizen science</a>
 </li>
 <li>
   <a href="teaching.html">Teaching</a>
@@ -494,9 +492,18 @@ $('.title').remove()
 <div class="row">
 <div class="col-lg-7">
 <p><strong>Dr. Jesse Borden, Postdoctoral associate</strong></p>
-<p>Dr. Borden is investigating spatial variation in coat color in gray squirrel as part of our NSF project on urban evolution.</p>
-<p><strong>Undergraduate students: Ruben Navarro, Devon Adams, Hannah Huston</strong></p>
-<p>Ruben, Devon, and Hannah are comparing ectoparasite loads between color morphs of eastern gray squirrels.</p>
+<p>Dr. Borden is investigating spatial variation in coat color in gray
+squirrel as part of our NSF project on urban evolution.</p>
+<p><strong>Sam Dennenberg, Research technician</strong></p>
+<p>Sam is leading field work on an experiment to test for differential
+attack rates by predators on color morphs of eastern gray squirrels in
+urban and rural environments.</p>
+<p><strong>Undergraduate students: Calvin Lincoln, Chidalu Nwokolo, and
+James Nelson</strong></p>
+<p>Calvin, Chidalu, and James are using behavioral trials in the field
+to compare antipredator behavior bewteen color morphs of eastern gray
+squirrels in different environmental contexts of the urban
+landscape.</p>
 </div>
 <div class="col-lg-5">
 <p><img src="images/IMG_2550@2x.jpg" width="100%" style="display: block; margin: auto;" /></p>
@@ -504,54 +511,157 @@ $('.title').remove()
 </div>
 <div id="former-lab-members" class="section level3">
 <h3><strong>Former lab members</strong></h3>
+<p><strong>Ruben Navarro, Devon Adams, and Hannah Huston (undergraduate
+students)</strong></p>
+<p>Ruben, Devon, and Hannah compared ectoparasite loads between color
+morphs of eastern gray squirrels as part of the HWS Summer Research
+Program in 2022.</p>
 <p><strong>Joelee Tooley, Research technician</strong></p>
-<p>Joelee worked on our NSF project on urban evolution with eastern gray squirrels, assisting with camera trapping, live-trapping, and database management.</p>
-<p><strong><a href="https://johnpvanek.weebly.com/" target="_blank">Dr. John Vanek, Postdoctoral associate</a></strong></p>
-<p>John worked on our NSF project on urban evolution with eastern gray squirrels. John developed our trapping methods and led a translocation experiment to test for differential survival between color morphs in urban and rural environments. John is currently a Zoologist with the New York Natural Heritage Program.</p>
+<p>Joelee worked on our NSF project on urban evolution with eastern gray
+squirrels, assisting with camera trapping, live-trapping, and database
+management.</p>
+<p><strong><a href="https://johnpvanek.weebly.com/" target="_blank">Dr. John
+Vanek, Postdoctoral associate</a></strong></p>
+<p>John worked on our NSF project on urban evolution with eastern gray
+squirrels. John developed our trapping methods and led a translocation
+experiment to test for differential survival between color morphs in
+urban and rural environments. John is currently a Zoologist with the New
+York Natural Heritage Program.</p>
 <p><strong>Richard Rich, Research technician</strong></p>
-<p>Richard worked on our urban evolution project on eastern gray squirrels, assisting with camera trapping, live-trapping, and database management.</p>
+<p>Richard worked on our urban evolution project on eastern gray
+squirrels, assisting with camera trapping, live-trapping, and database
+management.</p>
 <p><strong>Henry Loudon, Undergraduate student</strong></p>
-<p>Henry completed an independent study project piloting experimental approaches to measure predator attack rates on eastern gray squirrels.</p>
+<p>Henry completed an independent study project piloting experimental
+approaches to measure predator attack rates on eastern gray
+squirrels.</p>
 <p><strong>Samantha Sorensen, Undergraduate student</strong></p>
-<p>Samantha completed an independent study project piloting experimental approaches to measure predator attack rates on eastern gray squirrels.</p>
+<p>Samantha completed an independent study project piloting experimental
+approaches to measure predator attack rates on eastern gray
+squirrels.</p>
 <p><strong>Mark Suchewski, Undergraduate student</strong></p>
-<p>Mark participated in the 2021 Summer Research Program and completed an independent study on the effects of experimental translocation on the behavioral and survival of gray squirrel color morphs. Mark also worked in my lab in summer 2019 on a project to understand behavioral responses of banner-tailed kangaroo rats to grassland restoration in the Chihuahuan Desert of southern New Mexico.</p>
+<p>Mark participated in the 2021 Summer Research Program and completed
+an independent study on the effects of experimental translocation on the
+behavioral and survival of gray squirrel color morphs. Mark also worked
+in my lab in summer 2019 on a project to understand behavioral responses
+of banner-tailed kangaroo rats to grassland restoration in the
+Chihuahuan Desert of southern New Mexico.</p>
 <p><strong>Regina Hashim, Undergraduate student</strong></p>
-<p>Regina participated in the 2021 Summer Research Program and helped initiate a new project to test for differences in survival between gray and melanic color morphs of eastern gray squirrels in urban and rural environments.</p>
+<p>Regina participated in the 2021 Summer Research Program and helped
+initiate a new project to test for differences in survival between gray
+and melanic color morphs of eastern gray squirrels in urban and rural
+environments.</p>
 <p><strong>Connor Parrow, Undergraduate student</strong></p>
-<p>Connor worked in my lab during the 2020 Summer Research Program, using camera traps to understand urbanization effects on the abundance and distribution of gray squirrels and other small mammals.</p>
+<p>Connor worked in my lab during the 2020 Summer Research Program,
+using camera traps to understand urbanization effects on the abundance
+and distribution of gray squirrels and other small mammals.</p>
 <p><strong>Alessandra Bryan, Undergraduate student</strong></p>
-<p>Ally completed an honors thesis in my lab in 2019-20 on how urbanization and forest change affect crypsis of eastern gray squirrels. Ally worked on a couple of different project in my lab prior to her honors thesis, including understanding land use legacy effecds on behavioral variation in red-backed salamanders, and characterizing the population genetic structure of an isolated population of plains pocket gophers.</p>
+<p>Ally completed an honors thesis in my lab in 2019-20 on how
+urbanization and forest change affect crypsis of eastern gray squirrels.
+Ally worked on a couple of different project in my lab prior to her
+honors thesis, including understanding land use legacy effecds on
+behavioral variation in red-backed salamanders, and characterizing the
+population genetic structure of an isolated population of plains pocket
+gophers.</p>
 <p><strong>Britta Goncarovs, Undergraduate student</strong></p>
-<p>Britta worked in my lab in summer 2018 to study effects of land use history on behavioral variation in red-backed salamanders, and she continued as aresearch assistant to help create a model of forest cover change in New England since the early 1970s using Landsat data. In 2019 she was a summer research student in southern New Mexico studying how grassland restoration in the Chihuahuan Desert affects the behavior of banner-tailed kangaroo rats.</p>
+<p>Britta worked in my lab in summer 2018 to study effects of land use
+history on behavioral variation in red-backed salamanders, and she
+continued as aresearch assistant to help create a model of forest cover
+change in New England since the early 1970s using Landsat data. In 2019
+she was a summer research student in southern New Mexico studying how
+grassland restoration in the Chihuahuan Desert affects the behavior of
+banner-tailed kangaroo rats.</p>
 <p><strong>Grace Marshall, Undergraduate student</strong></p>
-<p>Grace worked with Prof. David Droney and me in summer 2017 to study effects of land use history on behavioral variation in red-backed salamanders. She completed an honors thesis on the relationship between water balance and movement personalities in red-backed salamanders. Grace is currently a research technician at the Cornell University Agricultural Experiment Station.</p>
+<p>Grace worked with Prof. David Droney and me in summer 2017 to study
+effects of land use history on behavioral variation in red-backed
+salamanders. She completed an honors thesis on the relationship between
+water balance and movement personalities in red-backed salamanders.
+Grace is currently a research technician at the Cornell University
+Agricultural Experiment Station.</p>
 <p><strong>Penelope Murphy, Undergraduate student</strong></p>
-<p>Penelope worked with me in summer 2018 in New Mexico to study biodiversity responses to grassland restoration in the Chihuahuan Desert. Penelope is starting an M.S. degree in wildlife ecology at the University of Wisconsin in fall 2020.</p>
+<p>Penelope worked with me in summer 2018 in New Mexico to study
+biodiversity responses to grassland restoration in the Chihuahuan
+Desert. Penelope is starting an M.S. degree in wildlife ecology at the
+University of Wisconsin in fall 2020.</p>
 <p><strong>Banan Otaibi, Undergraduate student</strong></p>
-<p>Banan examined differences in post-attack antipredator behavior between color morphs of red-backed salamanders in summer 2016 and published a paper on her work in Amphbia-Reptilia. She completed an honors thesis on effects of forest fragmentation on genetic population structure and color polymorphism in red-backed salamanders. Banan is currently in medical school at Penn State.</p>
-<p><strong><a href="https://www.linkedin.com/in/michaelconroy3" target="_blank">Michael Conroy</a></strong></p>
-<p>Michael completed an independent study in Fall 2017 on social and economic factors that affect prevalence of chlamydia in the Midwestern U.S. Michael is currently in medical school at SUNY Upstate.</p>
+<p>Banan examined differences in post-attack antipredator behavior
+between color morphs of red-backed salamanders in summer 2016 and
+published a paper on her work in Amphbia-Reptilia. She completed an
+honors thesis on effects of forest fragmentation on genetic population
+structure and color polymorphism in red-backed salamanders. Banan is
+currently in medical school at Penn State.</p>
+<p><strong><a href="https://www.linkedin.com/in/michaelconroy3" target="_blank">Michael
+Conroy</a></strong></p>
+<p>Michael completed an independent study in Fall 2017 on social and
+economic factors that affect prevalence of chlamydia in the Midwestern
+U.S. Michael is currently in medical school at SUNY Upstate.</p>
 <p><strong>Katie Rogan, Undergraduate student</strong></p>
-<p>Katie conducted a lab experiment in summer 2016 to examine how stress differentially affects movement decisions in red-backed salamanders with different movement personalities.</p>
-<p><strong><a href="https://www.linkedin.com/in/quinceyjohnson" target="_blank">Quincey Johnson</a></strong></p>
-<p>Quincey started working in my lab in spring 2016 as a GIS technician, and she continued working with me as a full-time research technician in summer 2016. She came back to the lab as a research technician in summer 2017 to work on biodiversity responses to restoration of desert grasslands in New Mexico. Quincey is a Project and Outreach Coordinator at Madison River Foundation in Bozeman, MT.</p>
+<p>Katie conducted a lab experiment in summer 2016 to examine how stress
+differentially affects movement decisions in red-backed salamanders with
+different movement personalities.</p>
+<p><strong><a href="https://www.linkedin.com/in/quinceyjohnson" target="_blank">Quincey
+Johnson</a></strong></p>
+<p>Quincey started working in my lab in spring 2016 as a GIS technician,
+and she continued working with me as a full-time research technician in
+summer 2016. She came back to the lab as a research technician in summer
+2017 to work on biodiversity responses to restoration of desert
+grasslands in New Mexico. Quincey is a Project and Outreach Coordinator
+at Madison River Foundation in Bozeman, MT.</p>
 <p><strong>Shay Callahan, Undergraduate student</strong></p>
-<p>Shay was a summer research student in 2016 and studied the effects of forest fragmentation on behavior of red-backed salamanders. She came back to the lab as a research technician in summer 2017 to work on biodiversity responses to restoration of desert grasslands in New Mexico. Shay completed an MS in ecology at the University of Illinois.</p>
-<p><strong>Thomas Stephens, Undergraduate student (Union College)</strong></p>
-<p>Thomas came from Union College in summer 2016 and worked with Katie on personality-dependent movement behavior in red-backed salamanders. He also collected preliminary data on how timber harvest affects color morph frequencies in red-backed salamanders.</p>
-<p><strong><a href="https://www.monmouth.edu/directory/profiles/mbalman/" target="_blank">Maddie Balman</a>, Undergraduate student</strong></p>
-<p>Maddie worked in my lab as a research assistant in summer 2014, helping to sample terrestrial salamanders in the field and take care of animals in the lab. She completed an independent study with me in spring 2015 on how roads affect movement behavior of spotted salamanders. She then worked as a summer research student in 2015 on the effects of forest fragmentation on behavior of red-backed salamanders. Maddie completed a PhD in ecology and evolution at Case Western Reserve University and is currently a lecturer at Monmouth University.</p>
-<p><strong><a href="https://www.linkedin.com/in/lauren-walter-230483105" target="_blank">Lauren Walter</a>, Undergraduate student</strong></p>
-<p>Lauren started in the lab as a research assistant working lab work for a project on the population genetics of red-backed salamanders. She completed an independent study with me in Fall 2014 on bird-window collisions. Lauren is currently working on a PhD in genomics and bioinformatics at Cornell University.</p>
-<p><strong><a href="https://www.linkedin.com/in/alison-mccarthy-14616577" target="_blank">Alison McCarthy</a>, Undergraduate student</strong></p>
-<p>Alison started working in my lab on the population genetics of banner-tailed kangaroo rats in Fall 2012. She was a summer research student in 2013 and 2014, and she completed honors work on effects of forest fragmentation on behavior of red-backed salamanders. She’s currently a Coastal Watershed Protection Coordinator at Clean Ocean Action.</p>
-<p><strong><a href="https://www.researchgate.net/profile/Nicholas_Steijn" target="_blank">Nick Steijn</a>, Undergraduate student</strong></p>
-<p>Nick conduced summer research in 2014 on the abundance and distribution of terrestrial salamanders along a forest fragmentation gradient. Nick is currently a graduate student at Northern Illinois University working on effects of invasive plant removal on small mammal communities.</p>
+<p>Shay was a summer research student in 2016 and studied the effects of
+forest fragmentation on behavior of red-backed salamanders. She came
+back to the lab as a research technician in summer 2017 to work on
+biodiversity responses to restoration of desert grasslands in New
+Mexico. Shay completed an MS in ecology at the University of
+Illinois.</p>
+<p><strong>Thomas Stephens, Undergraduate student (Union
+College)</strong></p>
+<p>Thomas came from Union College in summer 2016 and worked with Katie
+on personality-dependent movement behavior in red-backed salamanders. He
+also collected preliminary data on how timber harvest affects color
+morph frequencies in red-backed salamanders.</p>
+<p><strong><a href="https://www.monmouth.edu/directory/profiles/mbalman/" target="_blank">Maddie
+Balman</a>, Undergraduate student</strong></p>
+<p>Maddie worked in my lab as a research assistant in summer 2014,
+helping to sample terrestrial salamanders in the field and take care of
+animals in the lab. She completed an independent study with me in spring
+2015 on how roads affect movement behavior of spotted salamanders. She
+then worked as a summer research student in 2015 on the effects of
+forest fragmentation on behavior of red-backed salamanders. Maddie
+completed a PhD in ecology and evolution at Case Western Reserve
+University and is currently a lecturer at Monmouth University.</p>
+<p><strong><a href="https://www.linkedin.com/in/lauren-walter-230483105" target="_blank">Lauren
+Walter</a>, Undergraduate student</strong></p>
+<p>Lauren started in the lab as a research assistant working lab work
+for a project on the population genetics of red-backed salamanders. She
+completed an independent study with me in Fall 2014 on bird-window
+collisions. Lauren is currently working on a PhD in genomics and
+bioinformatics at Cornell University.</p>
+<p><strong><a href="https://www.linkedin.com/in/alison-mccarthy-14616577" target="_blank">Alison
+McCarthy</a>, Undergraduate student</strong></p>
+<p>Alison started working in my lab on the population genetics of
+banner-tailed kangaroo rats in Fall 2012. She was a summer research
+student in 2013 and 2014, and she completed honors work on effects of
+forest fragmentation on behavior of red-backed salamanders. She’s
+currently a Coastal Watershed Protection Coordinator at Clean Ocean
+Action.</p>
+<p><strong><a href="https://www.researchgate.net/profile/Nicholas_Steijn" target="_blank">Nick
+Steijn</a>, Undergraduate student</strong></p>
+<p>Nick conduced summer research in 2014 on the abundance and
+distribution of terrestrial salamanders along a forest fragmentation
+gradient. Nick is currently a graduate student at Northern Illinois
+University working on effects of invasive plant removal on small mammal
+communities.</p>
 <p><strong>Kristen Cronmiller, Undergraduate student</strong></p>
-<p>Kristen started working in my lab on the population genetics of red-backed salamanders in fall 2014, and then she continued working with me as a full-time research technician throughout 2015.</p>
-<p><strong><a href="https://www.linkedin.com/in/sam-knopka-982942197" target="_blank">Sam Knopka</a>, Undergraduate student</strong></p>
-<p>Sam completed summer research (2013) and an honors thesis on the spatial distribution of red-backed salamanders along a forest fragmentation gradient at Finger Lakes National Forest. Sam is working on an MS in Wildlife Ecology at West Virginia University.</p>
+<p>Kristen started working in my lab on the population genetics of
+red-backed salamanders in fall 2014, and then she continued working with
+me as a full-time research technician throughout 2015.</p>
+<p><strong><a href="https://www.linkedin.com/in/sam-knopka-982942197" target="_blank">Sam
+Knopka</a>, Undergraduate student</strong></p>
+<p>Sam completed summer research (2013) and an honors thesis on the
+spatial distribution of red-backed salamanders along a forest
+fragmentation gradient at Finger Lakes National Forest. Sam is working
+on an MS in Wildlife Ecology at West Virginia University.</p>
 </div>
 </div>
 
@@ -561,7 +671,7 @@ $('.title').remove()
 <br>
 <br>
 <br>
-<p>Last modified January 2023</p>
+<p>Last modified October 2023</p>
 </center>
 </div>
 

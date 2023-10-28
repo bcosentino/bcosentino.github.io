@@ -13,6 +13,7 @@
 
 <title>Bradley J. Cosentino</title>
 
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -29,9 +30,8 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -231,6 +231,7 @@
 
 
 
+
 <link rel="stylesheet" href="../styles.css" type="text/css" />
 
 
@@ -255,6 +256,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -312,11 +316,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -345,8 +353,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -354,16 +362,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -407,7 +408,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -424,9 +425,6 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="publications.html">Publications</a>
-</li>
-<li>
-  <a href="citizensci.html">Citizen science</a>
 </li>
 <li>
   <a href="teaching.html">Teaching</a>
@@ -487,8 +485,13 @@ $('.title').remove()
 <div id="research-interests" class="section level2">
 <h2><strong>Research interests</strong></h2>
 <hr>
-<p>My research focuses on how environmental change affects the ecology and evolution of wildlife populations. I’m particularly interested in how landscape change interacts with climate change and other stressors to affect wildlife species. My lab addresses how changing ecological conditions affect species distributions, population dynamics, animal movements, and trait evolution. I work with a range of organisms and ecosystems, and I use a variety of research methods, including observation and experimentation, field and molecular data, and rigorous statistical analysis. What ties everything together is an interest in learning how human land use and other stressors affect the ecology and evolution of wildlife populations, and doing science that is useful for wildlife management.</p>
-<p><br></p>
+<p>My research focuses on the evolutionary and ecological responses of
+organisms to environmental change. I’m particularly interested in how
+environmental change affects trait evolution and population dynamics.
+Much of my recent research has focused on understanding evolutionary
+mechanisms driving trait evolution in cities. I integrate demographic
+and genomic approaches with a variety of study organisms to investigate
+these issues. <br></p>
 <div id="current-research-projects" class="section level3">
 <h3><strong>Current research projects</strong></h3>
 <div class="container-fluid main-container">
@@ -496,18 +499,27 @@ $('.title').remove()
 <div class="row">
 <div class="col-lg-7">
 <ul>
-<li><a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2018249&amp;HistoricalAwards=false">Effects of urbanization on the ecology and evolution of melanism in eastern gray squirrels</a></li>
-<li>Biodiversity responses to landscape change and grassland restoration in the Chihuahuan Desert, New Mexico</li>
-<li>Legacy effects of agriculture on wildlife populations in forest ecosystems</li>
-<li>Effects of habitat fragmentation on the distribution and genetic structure of an isolated population of plains pocket gopher (<em>Geomys bursarius</em>) in Illinois</li>
-<li>Designing a long-term monitoring program for the threatened Illinois chorus frog</li>
+<li><a
+href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2018249&amp;HistoricalAwards=false">Effects
+of urbanization on the evolution of coat color in eastern gray
+squirrels</a>. This project has a significant community science
+component - check out our <a
+href="https://squirrelmapper.org/">SquirrelMapper website</a> to learn
+more about ways to get involved!</li>
+<li>Biodiversity responses to landscape change and grassland restoration
+in the Chihuahuan Desert, New Mexico</li>
+<li>Examining how invasive mammal eradication restructures biodiversity
+on island ecosystems</li>
+<li>Legacy effects of agriculture on wildlife populations in forest
+ecosystems</li>
 </ul>
 </div>
 <div class="col-lg-5">
 <div class="figure" style="text-align: center">
-<img src="images/bannertail.jpg" alt="Banner-tailed kangaroo rat (*Dipodomys spectabilis*) at a grassland restoration site in New Mexico. Photo by Kevin Sierzega " width="100%" />
+<img src="images/squirrels.jpg" alt="Gray and melanic color morphs of eastern gray squirrels (*Sciurus carolinensis*) in Syracuse, NY. Photo by Elizabeth Hunter. " width="100%" />
 <p class="caption">
-Banner-tailed kangaroo rat (<em>Dipodomys spectabilis</em>) at a grassland restoration site in New Mexico. Photo by Kevin Sierzega
+Gray and melanic color morphs of eastern gray squirrels (<em>Sciurus
+carolinensis</em>) in Syracuse, NY. Photo by Elizabeth Hunter.
 </p>
 </div>
 </div>
@@ -520,7 +532,7 @@ Banner-tailed kangaroo rat (<em>Dipodomys spectabilis</em>) at a grassland resto
 <br>
 <br>
 <br>
-<p>Last modified November 2022</p>
+<p>Last modified October 2023</p>
 </center>
 </div>
 

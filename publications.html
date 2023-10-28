@@ -13,6 +13,7 @@
 
 <title>Bradley J. Cosentino</title>
 
+<script src="site_libs/header-attrs-2.21/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
@@ -29,9 +30,8 @@
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<script src="site_libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
-<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.4.0/css/v4-shims.min.css" rel="stylesheet" />
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
@@ -231,6 +231,7 @@
 
 
 
+
 <link rel="stylesheet" href="../styles.css" type="text/css" />
 
 
@@ -255,6 +256,9 @@ button.code-folding-btn:focus {
 }
 summary {
   display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
 }
 pre code {
   padding: 0;
@@ -312,11 +316,15 @@ $(document).ready(function () {
     href = "index.html";
   var menuAnchor = $('a[href="' + href + '"]');
 
-  // mark it active
-  menuAnchor.tab('show');
-
-  // if it's got a parent navbar menu mark it active as well
-  menuAnchor.closest('li.dropdown').addClass('active');
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
 
   // Navbar adjustments
   var navHeight = $(".navbar").first().height() + 15;
@@ -345,8 +353,8 @@ $(document).ready(function () {
   border-radius: 4px;
 }
 
-.tabset-dropdown > .nav-tabs > li.active:before {
-  content: "";
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
   font-family: 'Glyphicons Halflings';
   display: inline-block;
   padding: 10px;
@@ -354,16 +362,9 @@ $(document).ready(function () {
 }
 
 .tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
-  content: "&#xe258;";
-  border: none;
-}
-
-.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
-  content: "";
+  content: "\e258";
   font-family: 'Glyphicons Halflings';
-  display: inline-block;
-  padding: 10px;
-  border-right: 1px solid #ddd;
+  border: none;
 }
 
 .tabset-dropdown > .nav-tabs > li.active {
@@ -407,7 +408,7 @@ $(document).ready(function () {
 <div class="navbar navbar-default  navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -424,9 +425,6 @@ $(document).ready(function () {
 </li>
 <li>
   <a href="publications.html">Publications</a>
-</li>
-<li>
-  <a href="citizensci.html">Citizen science</a>
 </li>
 <li>
   <a href="teaching.html">Teaching</a>
@@ -488,87 +486,239 @@ $('.title').remove()
 <h2><strong>Publications</strong></h2>
 <hr>
 <div id="section" class="section level3">
-<h3>2022</h3>
-<p>Alexander, N.B., <strong>B.J. Cosentino,</strong> and R.L. Schooley.Testing the niche reduction hypothesis for a fossorial rodent (Geomys bursarius) experiencing agricultural intensification. Ecology and Evolution 12:e9559. <a href="https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.9559">Link</a></p>
-<p><strong>Cosentino, B.J.</strong> and J.P. Gibbs. Parallel evolution of urban-rural clines in melanism in a widespread mammal. Scientific Reports 12:1752. <a href="https://www.nature.com/articles/s41598-022-05746-2">Link</a></p>
+<h3>2023</h3>
+<p>Fusco, N., <strong>B.J. Cosentino</strong>, et al. In press.
+Population genomic structure of a widespread, urban-dwelling mammal.
+Molecular Ecology.</p>
+<p><strong>Cosentino, B.J.,</strong> J.P. Vanek, and J.P. Gibbs. Rural
+selection drives the evolution of an urban-rural cline in coat color in
+gray squirrels. Ecology and Evolution 13:e10544 <a
+href="https://onlinelibrary.wiley.com/doi/10.1002/ece3.10544">Link</a></p>
 </div>
 <div id="section-1" class="section level3">
-<h3>2021</h3>
-<p>Elmore, J.A., S.B. Hager, <strong>B.J. Cosentino</strong>, et al. Correlates of bird collisions with buildings across three North American countries. Conservation Biology 35:654-665. <a href="documents/elmore_consbio_2020.pdf">PDF</a></p>
-<p>Brubaker, K.M. and <strong>B.J. Cosentino</strong>. Forest structure and biomass in post-agricultural forests: Lessons learned with new spatial tools. Applied Vegetation Science 24:e12552. <a href="documents/brubaker_appvegsci_2021.pdf">PDF</a></p>
+<h3>2022</h3>
+<p><strong>Cosentino, B.J.</strong> and J.P. Gibbs. Parallel evolution
+of urban-rural clines in melanism in a widespread mammal. Scientific
+Reports 12:1752. <a
+href="https://www.nature.com/articles/s41598-022-05746-2">Link</a></p>
+<p>Alexander, N.B., <strong>B.J. Cosentino,</strong> and R.L.
+Schooley.Testing the niche reduction hypothesis for a fossorial rodent
+(Geomys bursarius) experiencing agricultural intensification. Ecology
+and Evolution 12:e9559. <a
+href="https://onlinelibrary.wiley.com/doi/full/10.1002/ece3.9559">Link</a></p>
 </div>
 <div id="section-2" class="section level3">
-<h3>2020</h3>
-<p>Wagnon, C.J., R.L. Schooley, and <strong>B.J. Cosentino</strong>. Shrub encroachment creates a dynamic landscape of fear for desert lagomorphs via multiple pathways. Ecosphere 11(9):e03240. <a href="documents/wagnon_ecosphere_2020.pdf">PDF</a></p>
+<h3>2021</h3>
+<p>Elmore, J.A., S.B. Hager, <strong>B.J. Cosentino</strong>, et
+al. Correlates of bird collisions with buildings across three North
+American countries. Conservation Biology 35:654-665. <a
+href="documents/elmore_consbio_2020.pdf">PDF</a></p>
+<p>Brubaker, K.M. and <strong>B.J. Cosentino</strong>. Forest structure
+and biomass in post-agricultural forests: Lessons learned with new
+spatial tools. Applied Vegetation Science 24:e12552. <a
+href="documents/brubaker_appvegsci_2021.pdf">PDF</a></p>
 </div>
 <div id="section-3" class="section level3">
-<h3>2019</h3>
-<p><strong>Cosentino, B.J.</strong>, R.L. Schooley, B.T. Bestelmeyer, H. Campos, and L.M. Burkett. 2019. Does habitat disturbance promote geogrpahical parthenogenesis in whiptail lizards? Evolutionary Ecology 33:839–853. <a href="documents/cosentino_evec_2019.pdf">PDF</a></p>
-<p>Bowne, D.R., <strong>B.J. Cosentino</strong>, L.J. Anderson, et al. 2019. A broader approach to understanding urbanization effects on freshwater turtles: Reply to Lambert and Steen 2019. Conservation Biology 33:1197-1199. <a href="documents/bowne_consbio_2019.pdf">PDF</a></p>
-<p>Gibbs, J.P., M.F. Buff, and <strong>B.J. Cosentino</strong>. 2019. The biological system - Urban wildlife, adaptation, and evolution: urbanization as a driver of contemporary evolution in gray squirrels (<em>Sciurus carolinensis</em>). In Understanding Urban Ecology. Hall, M.H. and S. Balogh, editors. Springer, pp. 269-286. <a href="https://link.springer.com/chapter/10.1007/978-3-030-11259-2_12">Link</a></p>
-<p>Marsh, D.M. and <strong>B.J. Cosentino</strong>. 2019. Causes and consequences of non-random drop-outs for citizen science projects: lessons from the North American amphibian monitoring program. Freshwater Science 38:292-302. <a href="documents/marsh_fws_2019.pdf">PDF</a></p>
-<p>Kenyon, K.L., <strong>B.J. Cosentino</strong>, A.J. Gottesman, M.E. Onorato, J. Hoque, and S.G. Hoskins. 2019. From CREATE workshop to course implementation: examining downstream impacts on teaching practices and student learning at 4-year institutions. BioScience 69:47-58. <a href="documents/kenyon_bioscience_2019.pdf">PDF</a></p>
+<h3>2020</h3>
+<p>Wagnon, C.J., R.L. Schooley, and <strong>B.J. Cosentino</strong>.
+Shrub encroachment creates a dynamic landscape of fear for desert
+lagomorphs via multiple pathways. Ecosphere 11(9):e03240. <a
+href="documents/wagnon_ecosphere_2020.pdf">PDF</a></p>
 </div>
 <div id="section-4" class="section level3">
-<h3>2018</h3>
-<p><strong>Cosentino, B.J.</strong> and K.M. Brubaker. 2018. Effects of land use legacies and habitat fragmentation on salamander abundance. Landscape Ecology 33:1573-1584. <a href="documents/cosentino_landecol_2018.pdf">PDF</a></p>
-<p>Bowne, D., <strong>B.J. Cosentino</strong>, L.J. Anderson, et al. 2018. Effects of urbanization on the population structure of freshwater turtles across the United States. Conservation Biology 32:1150-1161. <a href="documents/bowne_consbio_2018.pdf">PDF</a></p>
-<p><strong>Cosentino, B.J.</strong>, and R.L. Schooley. Dispersal and wetland fragmentation. 2018. In: Finlayson, C., et al., editors. The Wetland Book. Springer, Dordrecth. <a href="documents/cosentino_wetland_2018.pdf">PDF</a></p>
-<p>Schooley, R.L., and <strong>B.J. Cosentino</strong>. 2018. Metapopulation dynamics of wetland species. In: Finlayson, C., et al., editors. The Wetland Book. Springer, Dordrecth. <a href="documents/schooley_wetland_2018.pdf">PDF</a></p>
+<h3>2019</h3>
+<p><strong>Cosentino, B.J.</strong>, R.L. Schooley, B.T. Bestelmeyer, H.
+Campos, and L.M. Burkett. 2019. Does habitat disturbance promote
+geogrpahical parthenogenesis in whiptail lizards? Evolutionary Ecology
+33:839–853. <a href="documents/cosentino_evec_2019.pdf">PDF</a></p>
+<p>Bowne, D.R., <strong>B.J. Cosentino</strong>, L.J. Anderson, et
+al. 2019. A broader approach to understanding urbanization effects on
+freshwater turtles: Reply to Lambert and Steen 2019. Conservation
+Biology 33:1197-1199. <a
+href="documents/bowne_consbio_2019.pdf">PDF</a></p>
+<p>Gibbs, J.P., M.F. Buff, and <strong>B.J. Cosentino</strong>. 2019.
+The biological system - Urban wildlife, adaptation, and evolution:
+urbanization as a driver of contemporary evolution in gray squirrels
+(<em>Sciurus carolinensis</em>). In Understanding Urban Ecology. Hall,
+M.H. and S. Balogh, editors. Springer, pp. 269-286. <a
+href="https://link.springer.com/chapter/10.1007/978-3-030-11259-2_12">Link</a></p>
+<p>Marsh, D.M. and <strong>B.J. Cosentino</strong>. 2019. Causes and
+consequences of non-random drop-outs for citizen science projects:
+lessons from the North American amphibian monitoring program. Freshwater
+Science 38:292-302. <a href="documents/marsh_fws_2019.pdf">PDF</a></p>
+<p>Kenyon, K.L., <strong>B.J. Cosentino</strong>, A.J. Gottesman, M.E.
+Onorato, J. Hoque, and S.G. Hoskins. 2019. From CREATE workshop to
+course implementation: examining downstream impacts on teaching
+practices and student learning at 4-year institutions. BioScience
+69:47-58. <a href="documents/kenyon_bioscience_2019.pdf">PDF</a></p>
 </div>
 <div id="section-5" class="section level3">
-<h3>2017</h3>
-<p><strong>Cosentino, B.J.</strong>, J.D. Moore, N.E. Karraker, M. Ouellet, and J.P. Gibbs. 2017. Evolutionary response to global change: climate and land use interact to shape color polymorphism in a woodland salamander. Ecology and Evolution 7:5426-5434. <a href="documents/cosentino_evec_2017.pdf">PDF</a></p>
-<p>Hager, S.B., <strong>B.J. Cosentino</strong>, M.A. Aguilar-Gómez, M. L. Anderson, M. Bakermans, et al. 2017. Continent-wide analysis of how urbanization affects bird-window collision mortality in North America. Biological Conservation 212:209-215. <a href="documents/hager_biolcons_2017.pdf">PDF</a></p>
-<p>Otaibi, B., Q. Johnson, and <strong>B.J. Cosentino. 2017</strong>. Postautotomy tail movement differs between colour morphs of the red-backed salamander (Plethodon cinereus). Amphibia-Reptilia 38:395-399. <a href="documents/otaibi_amre_2017.pdf">PDF</a></p>
-<p>Marsh, D.M., <strong>B.J. Cosentino</strong>, K.S. Jones, et al. 2017. Effects of roads and land use on frog distributions across spatial scales and regions in the eastern and central United States. Diversity and Distributions 23:158-170. <a href="documents/marsh_divdist_2017.pdf">PDF</a></p>
+<h3>2018</h3>
+<p><strong>Cosentino, B.J.</strong> and K.M. Brubaker. 2018. Effects of
+land use legacies and habitat fragmentation on salamander abundance.
+Landscape Ecology 33:1573-1584. <a
+href="documents/cosentino_landecol_2018.pdf">PDF</a></p>
+<p>Bowne, D., <strong>B.J. Cosentino</strong>, L.J. Anderson, et
+al. 2018. Effects of urbanization on the population structure of
+freshwater turtles across the United States. Conservation Biology
+32:1150-1161. <a href="documents/bowne_consbio_2018.pdf">PDF</a></p>
+<p><strong>Cosentino, B.J.</strong>, and R.L. Schooley. Dispersal and
+wetland fragmentation. 2018. In: Finlayson, C., et al., editors. The
+Wetland Book. Springer, Dordrecth. <a
+href="documents/cosentino_wetland_2018.pdf">PDF</a></p>
+<p>Schooley, R.L., and <strong>B.J. Cosentino</strong>. 2018.
+Metapopulation dynamics of wetland species. In: Finlayson, C., et al.,
+editors. The Wetland Book. Springer, Dordrecth. <a
+href="documents/schooley_wetland_2018.pdf">PDF</a></p>
 </div>
 <div id="section-6" class="section level3">
-<h3>2016</h3>
-<p><strong>Cosentino, B.J.</strong>, and D.C. Droney. 2016. Movement behaviour of woodland salamanders is repeatable and varies with forest age in a fragmented landscape. Animal Behaviour 121:137-146. <a href="documents/cosentino_anbeh_2016.pdf">PDF</a></p>
+<h3>2017</h3>
+<p><strong>Cosentino, B.J.</strong>, J.D. Moore, N.E. Karraker, M.
+Ouellet, and J.P. Gibbs. 2017. Evolutionary response to global change:
+climate and land use interact to shape color polymorphism in a woodland
+salamander. Ecology and Evolution 7:5426-5434. <a
+href="documents/cosentino_evec_2017.pdf">PDF</a></p>
+<p>Hager, S.B., <strong>B.J. Cosentino</strong>, M.A. Aguilar-Gómez, M.
+L. Anderson, M. Bakermans, et al. 2017. Continent-wide analysis of how
+urbanization affects bird-window collision mortality in North America.
+Biological Conservation 212:209-215. <a
+href="documents/hager_biolcons_2017.pdf">PDF</a></p>
+<p>Otaibi, B., Q. Johnson, and <strong>B.J. Cosentino. 2017</strong>.
+Postautotomy tail movement differs between colour morphs of the
+red-backed salamander (Plethodon cinereus). Amphibia-Reptilia
+38:395-399. <a href="documents/otaibi_amre_2017.pdf">PDF</a></p>
+<p>Marsh, D.M., <strong>B.J. Cosentino</strong>, K.S. Jones, et
+al. 2017. Effects of roads and land use on frog distributions across
+spatial scales and regions in the eastern and central United States.
+Diversity and Distributions 23:158-170. <a
+href="documents/marsh_divdist_2017.pdf">PDF</a></p>
 </div>
 <div id="section-7" class="section level3">
-<h3>2015</h3>
-<p><strong>Cosentino, B.J.</strong>, R.L. Schooley, B.T. Bestelmeyer, A.J. McCarthy, and K. Sierzega. 2015. Rapid genetic restoration of a keystone species exhibiting delayed demographic response. Molecular Ecology. 24:6120–6133. <a href="documents/cosentino_molecol_2015.pdf">PDF</a></p>
+<h3>2016</h3>
+<p><strong>Cosentino, B.J.</strong>, and D.C. Droney. 2016. Movement
+behaviour of woodland salamanders is repeatable and varies with forest
+age in a fragmented landscape. Animal Behaviour 121:137-146. <a
+href="documents/cosentino_anbeh_2016.pdf">PDF</a></p>
 </div>
 <div id="section-8" class="section level3">
-<h3>2014</h3>
-<p><strong>Cosentino, B.J.</strong>, D.M. Marsh, K.S. Jones, et al. 2014. Citizen science reveals widespread negative effects of roads on amphibian distributions. Biological Conservation 180:31–38. <a href="documents/cosentino_biolcons_2014.pdf">PDF</a></p>
-<p>McAllister, M.M., R.L. Schooley, B.T. Bestelmeyer, J.M. Coffman, and <strong>B.J. Cosentino</strong>. 2014. Effects of grassland restoration efforts on mound-building ants in the Chihuahuan Desert. Journal of Arid Environments 111:79–83. <a href="documents/mcallister_arid_2014.pdf">PDF</a></p>
-<p><strong>Cosentino, B.J.</strong>, R.L. Schooley, B.T. Bestelmeyer, J.F. Kelly, and J.M. Coffman. 2014. Constraints and time lags for recovery of a keystone species (Dipodomys spectabilis) after landscape restoration. Landscape Ecology 29:665–675. <a href="documents/cosentino_landecol_2014.pdf">PDF</a></p>
+<h3>2015</h3>
+<p><strong>Cosentino, B.J.</strong>, R.L. Schooley, B.T. Bestelmeyer,
+A.J. McCarthy, and K. Sierzega. 2015. Rapid genetic restoration of a
+keystone species exhibiting delayed demographic response. Molecular
+Ecology. 24:6120–6133. <a
+href="documents/cosentino_molecol_2015.pdf">PDF</a></p>
 </div>
 <div id="section-9" class="section level3">
-<h3>2013</h3>
-<p><strong>Cosentino, B.J.</strong>, R.L. Schooley, B.T. Bestelmeyer, and J.M. Coffman. 2013. Response of lizard community structure to desert grassland restoration mediated by a keystone rodent. Biodiversity and Conservation 22:921–935. <a href="documents/cosentino_biodivcon_2013.pdf">PDF</a></p>
-<p>Hager,S.B., <strong>B.J. Cosentino</strong>, K.J. McKay, C. Monson, W. Zuurdeeg, and B. Blevins. 2013. Window area and development drive spatial variation in bird-window collisions in an urban landscape. PLoS One 8(1):e53371. <a href="documents/hager_plosone_2013.pdf">PDF</a></p>
-<p>Bluett, R.D., and <strong>B.J. Cosentino</strong>. 2013. Estimating occupancy of Trachemys scripta and Chrysemys picta with time-lapse cameras and basking rafts: a pilot study in Illinois, USA. Transactions of the Illinois State Academy of Science 106:15–21. <a href="documents/bluett_ias_2013.pdf">PDF</a></p>
+<h3>2014</h3>
+<p><strong>Cosentino, B.J.</strong>, D.M. Marsh, K.S. Jones, et
+al. 2014. Citizen science reveals widespread negative effects of roads
+on amphibian distributions. Biological Conservation 180:31–38. <a
+href="documents/cosentino_biolcons_2014.pdf">PDF</a></p>
+<p>McAllister, M.M., R.L. Schooley, B.T. Bestelmeyer, J.M. Coffman, and
+<strong>B.J. Cosentino</strong>. 2014. Effects of grassland restoration
+efforts on mound-building ants in the Chihuahuan Desert. Journal of Arid
+Environments 111:79–83. <a
+href="documents/mcallister_arid_2014.pdf">PDF</a></p>
+<p><strong>Cosentino, B.J.</strong>, R.L. Schooley, B.T. Bestelmeyer,
+J.F. Kelly, and J.M. Coffman. 2014. Constraints and time lags for
+recovery of a keystone species (Dipodomys spectabilis) after landscape
+restoration. Landscape Ecology 29:665–675. <a
+href="documents/cosentino_landecol_2014.pdf">PDF</a></p>
 </div>
 <div id="section-10" class="section level3">
-<h3>2012</h3>
-<p><strong>Cosentino, B.J.</strong>, C.A. Phillips, R.L. Schooley, W.H. Lowe, and M.R. Douglas. 2012. Linking extinction-colonization dynamics to genetic structure in a salamander metapopulation. Proceedings of the Royal Society B 279:1575–1582. <a href="documents/cosentino_procb_2012.pdf">PDF</a></p>
-<p>Hager, S.B., <strong>B.J. Cosentino</strong>, and K.J. McKay. 2012. Scavenging affects persistence of avian carcasses resulting from window collisions in an urban landscape. Journal of Field Ornithology 83:203–211. <a href="documents/hager_jfo_2012.pdf">PDF</a></p>
-<p>Lowe, W.H., M.A. McPeek, G.E. Likens, and <strong>B.J. Cosentino</strong>. 2012. Decoupling of genetic and phenotypic divergence in a headwater landscape. Molecular Ecology 21:2399–2409. <a href="documents/lowe_molecol_2012.pdf">PDF</a></p>
+<h3>2013</h3>
+<p><strong>Cosentino, B.J.</strong>, R.L. Schooley, B.T. Bestelmeyer,
+and J.M. Coffman. 2013. Response of lizard community structure to desert
+grassland restoration mediated by a keystone rodent. Biodiversity and
+Conservation 22:921–935. <a
+href="documents/cosentino_biodivcon_2013.pdf">PDF</a></p>
+<p>Hager,S.B., <strong>B.J. Cosentino</strong>, K.J. McKay, C. Monson,
+W. Zuurdeeg, and B. Blevins. 2013. Window area and development drive
+spatial variation in bird-window collisions in an urban landscape. PLoS
+One 8(1):e53371. <a href="documents/hager_plosone_2013.pdf">PDF</a></p>
+<p>Bluett, R.D., and <strong>B.J. Cosentino</strong>. 2013. Estimating
+occupancy of Trachemys scripta and Chrysemys picta with time-lapse
+cameras and basking rafts: a pilot study in Illinois, USA. Transactions
+of the Illinois State Academy of Science 106:15–21. <a
+href="documents/bluett_ias_2013.pdf">PDF</a></p>
 </div>
 <div id="section-11" class="section level3">
+<h3>2012</h3>
+<p><strong>Cosentino, B.J.</strong>, C.A. Phillips, R.L. Schooley, W.H.
+Lowe, and M.R. Douglas. 2012. Linking extinction-colonization dynamics
+to genetic structure in a salamander metapopulation. Proceedings of the
+Royal Society B 279:1575–1582. <a
+href="documents/cosentino_procb_2012.pdf">PDF</a></p>
+<p>Hager, S.B., <strong>B.J. Cosentino</strong>, and K.J. McKay. 2012.
+Scavenging affects persistence of avian carcasses resulting from window
+collisions in an urban landscape. Journal of Field Ornithology
+83:203–211. <a href="documents/hager_jfo_2012.pdf">PDF</a></p>
+<p>Lowe, W.H., M.A. McPeek, G.E. Likens, and <strong>B.J.
+Cosentino</strong>. 2012. Decoupling of genetic and phenotypic
+divergence in a headwater landscape. Molecular Ecology 21:2399–2409. <a
+href="documents/lowe_molecol_2012.pdf">PDF</a></p>
+</div>
+<div id="section-12" class="section level3">
 <h3>2011</h3>
-<p><strong>Cosentino, B.J.</strong>, R.L. Schooley, and C.A. Phillips. 2011. Spatial connectivity moderates the effect of predatory fish on salamander metapopulation dynamics. Ecosphere 2(8):art95. <a href="documents/cosentino_ecosphere_2011.pdf">PDF</a></p>
-<p><strong>Cosentino, B.J.</strong>, R.L. Schooley, and C.A. Phillips. 2011. Connectivity of agroecosystems: dispersal costs can vary among crops. Landscape Ecology 26:371–379. <a href="documents/cosentino_landecol_2011.pdf">PDF</a></p>
+<p><strong>Cosentino, B.J.</strong>, R.L. Schooley, and C.A. Phillips.
+2011. Spatial connectivity moderates the effect of predatory fish on
+salamander metapopulation dynamics. Ecosphere 2(8):art95. <a
+href="documents/cosentino_ecosphere_2011.pdf">PDF</a></p>
+<p><strong>Cosentino, B.J.</strong>, R.L. Schooley, and C.A. Phillips.
+2011. Connectivity of agroecosystems: dispersal costs can vary among
+crops. Landscape Ecology 26:371–379. <a
+href="documents/cosentino_landecol_2011.pdf">PDF</a></p>
 </div>
 <div id="before-2011" class="section level3">
 <h3>Before 2011</h3>
-<p><strong>Cosentino, B.J.</strong>, R.L. Schooley, and C.A. Phillips. 2010. Wetland hydrology, area, and isolation influence occupancy and spatial turnover of the painted turtle, Chrysemys picta. Landscape Ecology 25:1589–1600. <a href="documents/cosentino_landecol_2010.pdf">PDF</a></p>
-<p><strong>Cosentino, B.J.</strong>, W.H. Lowe, and G.E. Likens. 2009. Demography and movement of the northern spring salamander in four New Hampshire headwater streams. Verh. Internat. Verin. Limnol. 30:677–680. <a href="documents/cosentino_vivl_2009.pdf">PDF</a></p>
-<p>Lowe, W.H., M.A. McPeek, G.E. Likens, and <strong>B.J. Cosentino</strong>. 2008. Linking movement behavior to dispersal and divergence in plethodontid salamanders. Molecular Ecology 17:4459–4469. <a href="documents/lowe_molecol_2008.pdf">PDF</a></p>
-<p>Hager, S.B., and <strong>B.J. Cosentino</strong>. 2006. An identification key to the rodent prey found in owl pellets: employing incisor size to distinguish among genera. American Biology Teacher 68:135–144. <a href="documents/hager_abt_2006.pdf">PDF</a></p>
-<p>Lowe, W.H., G.E. Likens, and <strong>B.J. Cosentino</strong>. 2006. Self-organization in streams: the relationship between movement behavior and body condition in a headwater salamander. Freshwater Biology 51:2052–2062. <a href="documents/lowe_fwbio_2006.pdf">PDF</a></p>
+<p><strong>Cosentino, B.J.</strong>, R.L. Schooley, and C.A. Phillips.
+2010. Wetland hydrology, area, and isolation influence occupancy and
+spatial turnover of the painted turtle, Chrysemys picta. Landscape
+Ecology 25:1589–1600. <a
+href="documents/cosentino_landecol_2010.pdf">PDF</a></p>
+<p><strong>Cosentino, B.J.</strong>, W.H. Lowe, and G.E. Likens. 2009.
+Demography and movement of the northern spring salamander in four New
+Hampshire headwater streams. Verh. Internat. Verin. Limnol. 30:677–680.
+<a href="documents/cosentino_vivl_2009.pdf">PDF</a></p>
+<p>Lowe, W.H., M.A. McPeek, G.E. Likens, and <strong>B.J.
+Cosentino</strong>. 2008. Linking movement behavior to dispersal and
+divergence in plethodontid salamanders. Molecular Ecology 17:4459–4469.
+<a href="documents/lowe_molecol_2008.pdf">PDF</a></p>
+<p>Hager, S.B., and <strong>B.J. Cosentino</strong>. 2006. An
+identification key to the rodent prey found in owl pellets: employing
+incisor size to distinguish among genera. American Biology Teacher
+68:135–144. <a href="documents/hager_abt_2006.pdf">PDF</a></p>
+<p>Lowe, W.H., G.E. Likens, and <strong>B.J. Cosentino</strong>. 2006.
+Self-organization in streams: the relationship between movement behavior
+and body condition in a headwater salamander. Freshwater Biology
+51:2052–2062. <a href="documents/lowe_fwbio_2006.pdf">PDF</a></p>
 </div>
 <div id="other-publications" class="section level3">
 <h3>Other publications</h3>
-<p><strong>Cosentino, B.J.</strong> 2023. Trend estimation and effects of landscape composition on the distribution of Illinois chorus frogs (<em>Pseudacris streckeri illinoensis</em>) in Illinois. Illinois Department of Natural Resources, Springfield, Illinois. <a href="documents/cosentino_icf_2023.pdf">PDF</a></p>
-<p><strong>Cosentino, B.J.</strong> 2018. Examining occupancy and detection probability after three years of monitoring for the Illinois chorus frog (<em>Pseudacris streckeri illinoensis</em>). Illinois Department of Natural Resources, Springfield, Illinois. <a href="documents/cosentino_icf_2018.pdf">PDF</a></p>
-<p><strong>Cosentino, B.J.</strong> 2014. Monitoring plan to detect trends in occupancy of Illinois chorus frogs (<em>Pseudacris streckeri illinoensis</em>). Illinois Department of Natural Resources, Springfield, Illinois. <a href="documents/cosentino_icf_2014.pdf">PDF</a></p>
-<p>Hager, S.B., and <strong>B.J. Cosentino</strong>. 2014. Surveying for bird carcasses resulting from window collisions: a standardized protocol. PeerJ PrePrints 2:e406v1. <a href="documents/hager_peerjpre_2014.pdf">PDF</a></p>
-<p><strong>Cosentino, B.J.</strong>, C.A. Phillips, and R.L. Schooley. 2008. Wetland occupancy and landscape connectivity for Blanding’s and Western Painted Turtles in the Green River Valley. Illinois Natural History Survey Technical Report 2008(55). <a href="documents/cosentino_turtle_2008.pdf">PDF</a></p>
+<p><strong>Cosentino, B.J.</strong> 2023. Trend estimation and effects
+of landscape composition on the distribution of Illinois chorus frogs
+(<em>Pseudacris streckeri illinoensis</em>) in Illinois. Illinois
+Department of Natural Resources, Springfield, Illinois. <a
+href="documents/cosentino_icf_2023.pdf">PDF</a></p>
+<p><strong>Cosentino, B.J.</strong> 2018. Examining occupancy and
+detection probability after three years of monitoring for the Illinois
+chorus frog (<em>Pseudacris streckeri illinoensis</em>). Illinois
+Department of Natural Resources, Springfield, Illinois. <a
+href="documents/cosentino_icf_2018.pdf">PDF</a></p>
+<p><strong>Cosentino, B.J.</strong> 2014. Monitoring plan to detect
+trends in occupancy of Illinois chorus frogs (<em>Pseudacris streckeri
+illinoensis</em>). Illinois Department of Natural Resources,
+Springfield, Illinois. <a
+href="documents/cosentino_icf_2014.pdf">PDF</a></p>
+<p>Hager, S.B., and <strong>B.J. Cosentino</strong>. 2014. Surveying for
+bird carcasses resulting from window collisions: a standardized
+protocol. PeerJ PrePrints 2:e406v1. <a
+href="documents/hager_peerjpre_2014.pdf">PDF</a></p>
+<p><strong>Cosentino, B.J.</strong>, C.A. Phillips, and R.L. Schooley.
+2008. Wetland occupancy and landscape connectivity for Blanding’s and
+Western Painted Turtles in the Green River Valley. Illinois Natural
+History Survey Technical Report 2008(55). <a
+href="documents/cosentino_turtle_2008.pdf">PDF</a></p>
 </div>
 </div>
 
@@ -578,7 +728,7 @@ $('.title').remove()
 <br>
 <br>
 <br>
-<p>Last modified January 2023</p>
+<p>Last modified October 2023</p>
 </center>
 </div>
 
